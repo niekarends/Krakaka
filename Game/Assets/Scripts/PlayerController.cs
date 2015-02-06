@@ -19,6 +19,8 @@ public class PlayerController : MonoBehaviour {
 		Vector3 movement = new Vector3 (moveHorizontal, 0, moveVertical);
 
 		rigidbody.AddForce (movement * speed * Time.deltaTime);
+
+		if(
 	}
 
 	void OnTriggerEnter(Collider other) {
