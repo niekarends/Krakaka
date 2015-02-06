@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-
-public class Movement : MonoBehaviour {
+public class Rotator : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
@@ -11,8 +10,6 @@ public class Movement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKeyDown ("space")) {
-			transform.position += new Vector3(0, 3, 0) * Time.deltaTime;
-		} 
+		transform.Rotate (new Vector3 (15, 30, 45) * Time.deltaTime);
 	}
 }
