@@ -8,13 +8,20 @@ public class Boundary {
 
 public class PlayerController : MonoBehaviour {
 
-	public int movementSpeed, jumpHeight;
+	public float movementSpeed, jumpHeight, tilt, rotation;
 	private bool isAirborne;
 	public Boundary boundary;
+	public GameObject explosion;
+	private GameController gameController;
 
 
 	void Start() {
-
+		GameObject gameControllerObject = GameObject.FindWithTag ("GameController");
+		if (gameControllerObject != null) {
+			gameController = gameControllerObject.GetComponent <GameController> ();
+		} else {
+			Debug.Log ("Cant find gamecontroller");
+		}
 	}
 
 	void FixedUpdate() {
@@ -34,7 +41,7 @@ public class PlayerController : MonoBehaviour {
 				rigidbody.position.y,
 				Mathf.Clamp(rigidbody.position.z, boundary.zMin, boundary.zMax)
 				);
-
+		rigidbody.rotation = Quaternion.Euler (0, rigidbody.velocity.x * rotation, rigidbody.velocity.x * -tilt);
 	
 
 	}
@@ -49,12 +56,24 @@ public class PlayerController : MonoBehaviour {
 			isAirborne = true;
 		}
 		if (Physics.Raycast (new Vector3(transform.position.x,transform.position.y+2, transform.position.z), fwd, 0.5f)) {
-			Debug.Log ("Dood");
+			Quaternion spawnRotation = Quaternion.identity;
+			Instantiate(explosion,transform.position, spawnRotation);
+			DisableChildren();
+			Destroy(this);
+			gameController.gameOver();
 		}
 	}
 
 	void Jump() {
 		rigidbody.AddForce ( Vector3.up * jumpHeight );
 		isAirborne = true;
+	}
+
+	public void DisableChildren()  
+	{    
+		foreach (Transform child in transform)     
+		{  
+			child.gameObject.SetActiveRecursively(false);   
+		}   
 	}
 }
