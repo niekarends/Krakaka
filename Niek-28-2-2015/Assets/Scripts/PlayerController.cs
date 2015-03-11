@@ -35,6 +35,7 @@ public class PlayerController : MonoBehaviour {
 			Jump ();
 		}
 
+		//Keep the player object within the boundaries of the playfield
 		rigidbody.position = new Vector3
 			(
 				Mathf.Clamp(rigidbody.position.x, boundary.xMin, boundary.xMax),
@@ -47,15 +48,20 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void Update() {
+
 		Vector3 down = transform.TransformDirection(-Vector3.up);
-		Vector3 fwd = transform.TransformDirection (new Vector3(0,0,0.5f));
-		Debug.DrawRay (transform.position, fwd );
+		Vector3 fwd = transform.TransformDirection (new Vector3(0,0,1f));
+		//Debug.DrawRay (new Vector3(transform.position.x,transform.position.y+0.5f, transform.position.z), fwd, Color.red);
+
+		//Test if youre standing on the ground
 		if (Physics.Raycast (transform.position, down, .5f)) {
 			isAirborne = false;
 		} else {
 			isAirborne = true;
 		}
-		if (Physics.Raycast (new Vector3(transform.position.x,transform.position.y+2, transform.position.z), fwd, 0.5f)) {
+		//Code to test hits with cars using raycast
+		if (Physics.Raycast (new Vector3(transform.position.x,transform.position.y+0.5f, transform.position.z), fwd, 0.5f)) {
+			Debug.Log("raak");
 			Quaternion spawnRotation = Quaternion.identity;
 			Instantiate(explosion,transform.position, spawnRotation);
 			DisableChildren();
