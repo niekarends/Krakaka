@@ -8,20 +8,18 @@ public class GameController : MonoBehaviour
     public Vector3 spawnValues;
     public float[] spawnXValues;
     public int hazardCount;
-    public float spawnWait;
-    public float startWait;
-    public float waveWait;
+    public float spawnWait, startWait, waveWait, kmh;
     public bool isGameOver;
 
     public Text[] guiElements;
-    private float timeDriven;
-    private float mps;
-    public float kmh;
+    private float timeDriven, fuel, mps;
+    public int score;
 
     void Start()
     {
         mps = (kmh * 1000) / 3600;
         StartCoroutine(spawnWaves());
+        addFuel();
     }
 
     void Update()
@@ -40,8 +38,11 @@ public class GameController : MonoBehaviour
         }
         else
         {
+            Debug.Log("running" + timeDriven);
             timeDriven += Time.deltaTime;
+            fuel -= 0.5f;
             guiElements[1].text = "Distance: " + (int)(timeDriven * mps);
+            guiElements[2].text = "Fuel: " + (int)fuel;
         }
     }
 
@@ -69,5 +70,12 @@ public class GameController : MonoBehaviour
     public void gameOver()
     {
         isGameOver = true;
+    }
+    public void addFuel()
+    {
+        if (!isGameOver)
+        {
+            fuel += score;
+        }
     }
 }

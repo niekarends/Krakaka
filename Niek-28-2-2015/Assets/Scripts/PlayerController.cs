@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour {
 	public float movementSpeed, jumpHeight, tilt, rotation;
 	private bool isAirborne;
 	public Boundary boundary;
-	public GameObject explosion;
+	public GameObject[] explosion;
 	private GameController gameController;
 
 
@@ -60,13 +60,22 @@ public class PlayerController : MonoBehaviour {
 			isAirborne = true;
 		}
 		//Code to test hits with cars using raycast
-		if (Physics.Raycast (new Vector3(transform.position.x,transform.position.y+0.5f, transform.position.z), fwd, 0.5f)) {
-			Debug.Log("raak");
-			Quaternion spawnRotation = Quaternion.identity;
-			Instantiate(explosion,transform.position, spawnRotation);
-			DisableChildren();
-			Destroy(this);
-			gameController.gameOver();
+        Ray ray = new Ray(new Vector3(transform.position.x,transform.position.y+0.5f, transform.position.z), fwd);
+        RaycastHit hit; 
+		if (Physics.Raycast(ray, out hit, 0.5f )) {
+			Debug.Log("geraakt door: "+ hit.transform.gameObject.name + "raak");
+            if(hit.transform.gameObject.tag == "Enemy"){
+                Quaternion spawnRotation = Quaternion.identity;
+                Instantiate(explosion[0], transform.position, spawnRotation);
+                DisableChildren();
+                Destroy(this);
+                gameController.gameOver();
+            }else if(hit.transform.gameObject.tag == "Pickup"){
+                gameController.addFuel();
+                Quaternion spawnRotation = Quaternion.identity;
+                Instantiate(explosion[1], hit.transform.position, spawnRotation);
+                Destroy(hit.transform.gameObject);
+            }
 		}
 	}
 
