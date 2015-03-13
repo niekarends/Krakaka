@@ -11,22 +11,22 @@ public class FlashingLights : MonoBehaviour {
 	}
 
 	public IEnumerator flashLights(){
-		while (true) {
+		while (true) {	
 			for(int i = 0; i < 3; i++) {
-				redlight.range = 0;
+				redlight.range = brightness/3;
 				yield return new WaitForSeconds(0.025f);
 				redlight.range = brightness;
 				yield return new WaitForSeconds(0.025f);
 			}
-			redlight.range = 0;
+			redlight.range = brightness/3;
 			yield return new WaitForSeconds(0.05f);
 			for(int i = 0; i < 3; i++) {
-				bluelight.range = 0;
+				bluelight.range = brightness/3;
 				yield return new WaitForSeconds(0.025f);
 				bluelight.range = brightness;
 				yield return new WaitForSeconds(0.025f);
 			}
-			bluelight.range = 0;
+			bluelight.range = brightness/3;
 			yield return new WaitForSeconds(frequency);
 		}
 	}
