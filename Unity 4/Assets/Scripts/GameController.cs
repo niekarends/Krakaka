@@ -24,11 +24,30 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
+
+        if (fuel < 100)
+        {
+            if (fuel % 5 < 3)
+            {
+                guiElements[0].text = "";
+            }
+            else
+            {
+                guiElements[0].text = "Fuel low!";
+            }
+            
+        }
+        else
+        {
+
+            guiElements[0].text = "";
+        }
+
         if (isGameOver)
         {
 
-            guiElements[0].text = "Press R for restart";
-            guiElements[1].text = "FINAL SCORE:" + (int)(timeDriven * mps);
+            guiElements[1].text = "Press R for restart";
+            guiElements[0].text = "FINAL SCORE:" + (int)(timeDriven * mps);
 
             if (Input.GetKeyDown(KeyCode.R))
             {
@@ -38,7 +57,6 @@ public class GameController : MonoBehaviour
         }
         else
         {
-            Debug.Log("running" + timeDriven);
             timeDriven += Time.deltaTime;
             fuel -= 0.5f;
             guiElements[1].text = "Distance: " + (int)(timeDriven * mps);
@@ -70,6 +88,10 @@ public class GameController : MonoBehaviour
     public void gameOver()
     {
         isGameOver = true;
+    }
+    public float getFuel()
+    {
+        return fuel;
     }
     public void addFuel()
     {

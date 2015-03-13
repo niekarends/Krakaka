@@ -43,8 +43,15 @@ public class PlayerController : MonoBehaviour {
 				Mathf.Clamp(rigidbody.position.z, boundary.zMin, boundary.zMax)
 				);
 		rigidbody.rotation = Quaternion.Euler (0, rigidbody.velocity.x * rotation, rigidbody.velocity.x * -tilt);
-	
 
+        if (gameController.getFuel() <= 1)
+        {
+            Quaternion spawnRotation = Quaternion.identity;
+            Instantiate(explosion[0], transform.position, spawnRotation);
+            DisableChildren();
+            Destroy(this);
+            gameController.gameOver();
+        }
 	}
 
 	void Update() {
