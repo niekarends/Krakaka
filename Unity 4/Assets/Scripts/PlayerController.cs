@@ -66,7 +66,7 @@ public class PlayerController : MonoBehaviour {
 		} else {
 			isAirborne = true;
 		}
-		//Code to test hits with cars using raycast
+		//Code to test frontal hits with cars using raycast
         Ray ray = new Ray(new Vector3(transform.position.x,transform.position.y+0.5f, transform.position.z), fwd);
         RaycastHit hit; 
 		if (Physics.Raycast(ray, out hit, 0.5f )) {
@@ -84,6 +84,8 @@ public class PlayerController : MonoBehaviour {
                 Destroy(hit.transform.gameObject);
             }
 		}
+		//Checking for collision with pickups
+
 	}
 
 	void Jump() {
