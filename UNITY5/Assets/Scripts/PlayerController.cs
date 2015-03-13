@@ -46,16 +46,21 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void Update() {
-
+		if (Input.GetKeyDown(KeyCode.Space))
+			print("space key was pressed" + isAirborne);
 		if(Input.GetKeyDown(KeyCode.Space) && !isAirborne){
 			Debug.Log ("ahskdjh");
 			Jump ();
 		}
 
-		Vector3 down = transform.TransformDirection(-Vector3.up);
+		Vector3 down = transform.TransformDirection(Vector3.down);
 		Vector3 fwd = transform.TransformDirection (new Vector3(0,0,1f));
 		//Debug.DrawRay (new Vector3(transform.position.x,transform.position.y+0.5f, transform.position.z), fwd, Color.red);
 
+		Vector3 down2 = transform.TransformDirection(Vector3.down);
+		if (Physics.Raycast(transform.position, down2, 10)){
+			isAirborne = false;
+		}
 		//Test if youre standing on the ground
 		if (Physics.Raycast (transform.position, down, .5f)) {
 			isAirborne = false;
