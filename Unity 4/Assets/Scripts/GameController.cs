@@ -48,7 +48,7 @@ public class GameController : MonoBehaviour
         if (isGameOver)
         {
 
-            guiElements[1].text = "Press CTRL or X for restart";
+            guiElements[1].text = "Press R for restart";
             guiElements[0].text = "FINAL SCORE:" + (int)(timeDriven * mps);
 
             if (Input.GetButton("Fire1"))
