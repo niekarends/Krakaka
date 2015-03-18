@@ -27,6 +27,10 @@ public class GameController : MonoBehaviour
 	}
     void Update()
     {
+		if (Input.GetButton("Cancel"))
+		{
+			Application.LoadLevel("MainMenu");
+		}
 
         if (fuel < 100)
         {
