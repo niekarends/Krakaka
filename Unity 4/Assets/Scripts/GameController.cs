@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour
 {
     public GameObject[] hazards;
+	public GameObject exitButton, resumeButton;
     public Vector3 spawnValues;
     public float[] spawnXValues;
     public int hazardCount;
@@ -30,6 +31,16 @@ public class GameController : MonoBehaviour
 		if (Input.GetButton("Cancel"))
 		{
 			Application.LoadLevel("MainMenu");
+		}
+		if (Input.GetKeyDown("p")){
+			if(Time.timeScale == 0) {
+				resumeGame();
+			}
+			else {
+				Time.timeScale =0;
+				exitButton.SetActive(true);
+				resumeButton.SetActive(true);	
+			}
 		}
 
         if (fuel < 100)
@@ -69,6 +80,12 @@ public class GameController : MonoBehaviour
             guiElements[2].text = "Fuel: " + (int)fuel;
         }
     }
+
+	public void resumeGame(){
+		Time.timeScale =1;
+		exitButton.SetActive(false);
+		resumeButton.SetActive(false);
+	}
 
     IEnumerator spawnWaves()
     {
