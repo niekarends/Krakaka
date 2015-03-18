@@ -13,7 +13,6 @@ public class PlayerController : MonoBehaviour {
 	public float maxRotation, maxTilt;
 	public GameObject[] explosion;
 	private GameController gameController;
-    public AudioClip a;
 
 
 	void Start() {
@@ -83,7 +82,6 @@ public class PlayerController : MonoBehaviour {
                 gameController.addFuel();
                 Quaternion spawnRotation = Quaternion.identity;
                 Instantiate(explosion[1], hit.transform.position, spawnRotation);
-                AudioSource.PlayClipAtPoint(a, transform.position);
                 Destroy(hit.transform.gameObject);
             }
 		}
