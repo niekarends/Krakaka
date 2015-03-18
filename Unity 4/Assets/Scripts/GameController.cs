@@ -29,7 +29,7 @@ public class GameController : MonoBehaviour
 	}
     void Update()
     {
-		if (Input.GetButton("Cancel"))
+		if (Input.GetButtonDown("Cancel"))
 		{
 			if(Time.timeScale == 0) {
 				resumeGame();
