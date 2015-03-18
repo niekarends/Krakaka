@@ -21,6 +21,7 @@ public class GameController : MonoBehaviour
     {
         mps = (kmh * 1000) / 3600;
         StartCoroutine(spawnWaves());
+		Time.timeScale =1;
         
     }
 	void FixedUpdate(){
@@ -30,16 +31,11 @@ public class GameController : MonoBehaviour
     {
 		if (Input.GetButton("Cancel"))
 		{
-			Application.LoadLevel("MainMenu");
-		}
-		if (Input.GetKeyDown("p")){
 			if(Time.timeScale == 0) {
 				resumeGame();
 			}
 			else {
-				Time.timeScale =0;
-				exitButton.SetActive(true);
-				resumeButton.SetActive(true);	
+				pauseGame();
 			}
 		}
 
@@ -87,6 +83,12 @@ public class GameController : MonoBehaviour
 		resumeButton.SetActive(false);
 	}
 
+	public void pauseGame(){
+		Time.timeScale =0;
+		exitButton.SetActive(true);
+		resumeButton.SetActive(true);	
+	}
+
     IEnumerator spawnWaves()
     {
         yield return new WaitForSeconds(startWait);
@@ -112,10 +114,12 @@ public class GameController : MonoBehaviour
     {
         isGameOver = true;
     }
+
     public float getFuel()
     {
         return fuel;
     }
+
     public void addFuel()
     {
         if (!isGameOver)
