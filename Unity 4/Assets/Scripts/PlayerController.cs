@@ -5,12 +5,12 @@ using System.Collections;
 public class Boundary {
 	public float xMin, xMax, zMin, zMax;	
 }
-
 public class PlayerController : MonoBehaviour {
 
 	public float movementSpeed, jumpHeight, tilt, rotation;
 	private bool isAirborne;
 	public Boundary boundary;
+	public float maxRotation, maxTilt;
 	public GameObject[] explosion;
 	private GameController gameController;
 
@@ -42,7 +42,8 @@ public class PlayerController : MonoBehaviour {
 				rigidbody.position.y,
 				Mathf.Clamp(rigidbody.position.z, boundary.zMin, boundary.zMax)
 				);
-		rigidbody.rotation = Quaternion.Euler (0, rigidbody.velocity.x * rotation, rigidbody.velocity.x * -tilt);
+
+		rigidbody.rotation = Quaternion.Euler (0, Mathf.Clamp(rigidbody.velocity.x * rotation, -maxRotation, maxRotation) , Mathf.Clamp(rigidbody.velocity.x * -tilt, -maxTilt, maxTilt));
 
         if (gameController.getFuel() <= 1)
         {
