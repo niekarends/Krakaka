@@ -20,7 +20,6 @@ public class ChasePlayer : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         if (target != null)
