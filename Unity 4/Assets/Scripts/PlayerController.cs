@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour {
 		Vector3 movement = new Vector3 (moveHorizontal, 0.0f , moveVertical);
 		rigidbody.AddForce (movement * movementSpeed );
 
-		if(Input.GetButton("Jump") && !isAirborne){
+		if(Input.GetButtonDown("Jump") && !isAirborne){
 			Jump ();
 		}
 
