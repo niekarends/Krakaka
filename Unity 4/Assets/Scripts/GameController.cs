@@ -21,7 +21,9 @@ public class GameController : MonoBehaviour
         StartCoroutine(spawnWaves());
         addFuel();
     }
-
+	void FixedUpdate(){
+            fuel -= 0.25f;
+	}
     void Update()
     {
 
@@ -58,7 +60,6 @@ public class GameController : MonoBehaviour
         else
         {
             timeDriven += Time.deltaTime;
-            fuel -= 0.5f;
             guiElements[1].text = "Distance: " + (int)(timeDriven * mps);
             guiElements[2].text = "Fuel: " + (int)fuel;
         }
