@@ -72,7 +72,7 @@ public class PlayerController : MonoBehaviour {
         Ray ray = new Ray(new Vector3(transform.position.x,transform.position.y+0.5f, transform.position.z), fwd);
         RaycastHit hit; 
 		if (Physics.Raycast(ray, out hit, 0.5f )) {
-			Debug.Log("geraakt door: "+ hit.transform.gameObject.name + "raak");
+			//Debug.Log("geraakt door: "+ hit.transform.gameObject.name + "raak");
             if(hit.transform.gameObject.tag == "Enemy"){
                 Quaternion spawnRotation = Quaternion.identity;
                 Instantiate(explosion[0], transform.position, spawnRotation);
@@ -88,6 +88,14 @@ public class PlayerController : MonoBehaviour {
             }
 		}
 		//Checking for collision with pickups
+
+//		RaycastHit hit2;
+//		if (Physics.SphereCast (transform.position, 4.0f, transform.forward*10, out hit2)) {
+//			if(hit2.transform.tag == "Pickup") {
+//
+//			}
+//		}
+
 
 	}
 
