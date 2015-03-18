@@ -8,18 +8,19 @@ public class GameController : MonoBehaviour
     public Vector3 spawnValues;
     public float[] spawnXValues;
     public int hazardCount;
-    public float spawnWait, startWait, waveWait, kmh;
+	public float spawnWait, startWait, waveWait, kmh, fuel = 1000;
     public bool isGameOver;
 
     public Text[] guiElements;
-    private float timeDriven, fuel, mps;
-    public int score;
+    private float timeDriven, mps;
+    public int PointsPerPickup;
+
 
     void Start()
     {
         mps = (kmh * 1000) / 3600;
         StartCoroutine(spawnWaves());
-        addFuel();
+        
     }
 	void FixedUpdate(){
             fuel -= 0.25f;
@@ -98,7 +99,7 @@ public class GameController : MonoBehaviour
     {
         if (!isGameOver)
         {
-            fuel += score;
+            fuel += PointsPerPickup;
         }
     }
 }
