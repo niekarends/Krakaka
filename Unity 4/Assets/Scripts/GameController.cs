@@ -9,7 +9,7 @@ public class GameController : MonoBehaviour
     public Vector3 spawnValues;
     public float[] spawnXValues;
     public int hazardCount;
-	public float spawnWait, startWait, waveWait, kmh, fuel = 1000;
+	public float spawnWait, startWait, waveWait, kmh, fuel = 1000, maxfuel;
     public bool isGameOver;
 
     public Text[] guiElements;
@@ -38,7 +38,7 @@ public class GameController : MonoBehaviour
 				pauseGame();
 			}
 		}
-
+		//Makes the low fuel indicator blink
         if (fuel < 100)
         {
             if (fuel % 5 < 3)
@@ -73,7 +73,6 @@ public class GameController : MonoBehaviour
         {
             timeDriven += Time.deltaTime;
             guiElements[1].text = "Distance: " + (int)(timeDriven * mps);
-            guiElements[2].text = "Fuel: " + (int)fuel;
         }
     }
 
@@ -120,11 +119,20 @@ public class GameController : MonoBehaviour
         return fuel;
     }
 
+	public float getMaxFuel() 
+	{
+		return maxfuel;
+	}
+
     public void addFuel()
     {
         if (!isGameOver)
         {
             fuel += PointsPerPickup;
+			//Make sure you dont go over maximum fuel
+			if(fuel > maxfuel) {
+				fuel = maxfuel;
+			}
         }
     }
 }
