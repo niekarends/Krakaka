@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
@@ -93,13 +94,8 @@ public class GameController : MonoBehaviour
         yield return new WaitForSeconds(startWait);
         while (true)
         {
-            for (int i = 0; i < hazardCount; i++)
-            {
-                Vector3 spawnPosition = new Vector3(spawnXValues[Random.Range(0, spawnXValues.Length)], spawnValues.y, spawnValues.z);
-                Quaternion spawnRotation = Quaternion.identity;
-                Instantiate(hazards[Random.Range(0, hazards.Length)], spawnPosition, spawnRotation);
-                yield return new WaitForSeconds(spawnWait);
-            }
+			spawnWaveType1(1);
+
             yield return new WaitForSeconds(waveWait);
             if (isGameOver)
             {
@@ -108,6 +104,20 @@ public class GameController : MonoBehaviour
         }
 
     }
+
+	void spawnWaveType1(int amountOfCars) {
+		if (amountOfCars > spawnXValues.Length) {
+			amountOfCars = spawnXValues.Length;
+		} 
+		for(int i = 0; i < spawnXValues.Length; i++) {
+			float spawnchance = Random.Range (0,100);
+			if((100.0f / spawnXValues.Length * amountOfCars) > spawnchance) {
+				Vector3 spawnPosition = new Vector3(spawnXValues[i], spawnValues.y, spawnValues.z);
+				Quaternion spawnRotation = Quaternion.identity;
+				Instantiate(hazards[Random.Range(0, hazards.Length-1)], spawnPosition, spawnRotation);
+			}
+		}
+	}
 
     public void gameOver()
     {
