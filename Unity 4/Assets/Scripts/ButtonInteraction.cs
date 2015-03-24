@@ -2,10 +2,11 @@
 using System.Collections;
 
 public class ButtonInteraction : MonoBehaviour {
-	public GameObject defaultMenu, ControlMenu;
+	public GameObject defaultMenu, controlMenu, difficultyMenu;
 
 	public void startGame() {
-		Application.LoadLevel ("level1");
+
+		difficultyMenu.SetActive (!difficultyMenu.activeSelf);
 		
 	}
 
@@ -15,12 +16,26 @@ public class ButtonInteraction : MonoBehaviour {
 
 	public void openControls() {
 		defaultMenu.SetActive (false);
-		ControlMenu.SetActive (true);
+		controlMenu.SetActive (true);
 	}
 
 	public void shutControls() {
 		defaultMenu.SetActive (true);
-		ControlMenu.SetActive (false);
+		controlMenu.SetActive (false);
+	}
+
+	public void easyButtonPressed() {
+		PlayerPrefs.SetInt ("Difficulty", 2);
+		startLevel ();
+	}
+
+	public void hardButtonPressed() {
+		PlayerPrefs.SetInt ("Difficulty", 3);
+		startLevel ();
+	}
+
+	private void startLevel() {
+		Application.LoadLevel("level1");
 	}
 }
 

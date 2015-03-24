@@ -16,10 +16,12 @@ public class GameController : MonoBehaviour
     public Text[] guiElements;
     private float timeDriven, mps;
     public int PointsPerPickup;
+	private int gameDifficulty;
 
 
     void Start()
     {
+		gameDifficulty = PlayerPrefs.GetInt("Difficulty");
         mps = (kmh * 1000) / 3600;
         StartCoroutine(spawnWaves());
 		Time.timeScale =1;
@@ -94,7 +96,7 @@ public class GameController : MonoBehaviour
         yield return new WaitForSeconds(startWait);
         while (true)
         {
-			spawnWaveType1(1);
+			spawnWaveType1(gameDifficulty);
 
             yield return new WaitForSeconds(waveWait);
             if (isGameOver)
