@@ -17,6 +17,7 @@ public class ButtonInteraction : MonoBehaviour {
 	public void openControls() {
 		defaultMenu.SetActive (false);
 		controlMenu.SetActive (true);
+		difficultyMenu.SetActive (false);
 	}
 
 	public void shutControls() {

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour
 {
     public GameObject[] hazards;
-	public GameObject exitButton, resumeButton;
+	public GameObject exitButton, resumeButton, highscoretext;
     public Vector3 spawnValues;
     public float[] spawnXValues;
     public int hazardCount;
@@ -67,7 +67,10 @@ public class GameController : MonoBehaviour
 
             guiElements[1].text = "Press R for restart";
             guiElements[0].text = "FINAL SCORE:" + (int)(timeDriven * mps);
-
+			if((timeDriven * mps) > PlayerPrefs.GetFloat("highscore")) {
+				highscoretext.SetActive(true);
+				PlayerPrefs.SetFloat("highscore", (timeDriven * mps));
+			}
             if (Input.GetButton("Fire1"))
             {
                 Application.LoadLevel(Application.loadedLevel);
