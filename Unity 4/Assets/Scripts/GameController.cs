@@ -28,7 +28,9 @@ public class GameController : MonoBehaviour
         
     }
 	void FixedUpdate(){
+        if (!isGameOver) { 
             fuel -= 0.25f;
+        }
 	}
     void Update()
     {
