@@ -103,7 +103,14 @@ public class GameController : MonoBehaviour
         {
 			StartCoroutine( spawnWaveType2());
 				
-            yield return new WaitForSeconds(waveWait);
+            yield return new WaitForSeconds(6);
+
+			spawnWaveType1(PlayerPrefs.GetInt("Difficulty"));
+			yield return new WaitForSeconds(2);
+
+			spawnWaveType3();
+			yield return new WaitForSeconds (2);
+
             if (isGameOver)
             {
                 break;
@@ -121,7 +128,7 @@ public class GameController : MonoBehaviour
 			if((100.0f / spawnXValues.Length * amountOfCars) > spawnchance) {
 				Vector3 spawnPosition = new Vector3(spawnXValues[i], spawnValues.y, spawnValues.z);
 				Quaternion spawnRotation = Quaternion.identity;
-				Instantiate(hazards[Random.Range(0, hazards.Length-1)], spawnPosition, spawnRotation);
+				Instantiate(hazards[Random.Range(0, hazards.Length-2)], spawnPosition, spawnRotation);
 			}
 		}
 	}
@@ -139,6 +146,14 @@ public class GameController : MonoBehaviour
 
 		Instantiate(hazards[2], spawnPositionPickup, spawnRotation);
 
+	}
+
+	void spawnWaveType3() {
+		int spawnlane = Random.Range (0, spawnXValues.Length);
+		Vector3 spawnPosition = new Vector3(spawnXValues[spawnlane], spawnValues.y, spawnValues.z);
+		Quaternion spawnRotation = Quaternion.identity;
+
+		Instantiate(hazards[3], spawnPosition, spawnRotation);
 	}
 
 
