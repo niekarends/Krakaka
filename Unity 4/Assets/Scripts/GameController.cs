@@ -101,6 +101,12 @@ public class GameController : MonoBehaviour
         yield return new WaitForSeconds(startWait);
         while (true)
         {
+			spawnWaveType3();
+			yield return new WaitForSeconds (2);
+
+			spawnWaveType1(PlayerPrefs.GetInt("Difficulty"));
+			yield return new WaitForSeconds(2);
+
 			StartCoroutine( spawnWaveType2());
 				
             yield return new WaitForSeconds(6);
@@ -108,8 +114,7 @@ public class GameController : MonoBehaviour
 			spawnWaveType1(PlayerPrefs.GetInt("Difficulty"));
 			yield return new WaitForSeconds(2);
 
-			spawnWaveType3();
-			yield return new WaitForSeconds (2);
+
 
             if (isGameOver)
             {
