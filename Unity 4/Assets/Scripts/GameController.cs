@@ -109,7 +109,7 @@ public class GameController : MonoBehaviour
 
 			StartCoroutine( spawnWaveType2());
 				
-            yield return new WaitForSeconds(6);
+            yield return new WaitForSeconds(7);
 
 			spawnWaveType1(PlayerPrefs.GetInt("Difficulty"));
 			yield return new WaitForSeconds(2);
@@ -149,8 +149,12 @@ public class GameController : MonoBehaviour
 		yield return new WaitForSeconds (1.75f);
 		Instantiate(hazards[1], spawnPosition, spawnRotation);
 
-		Instantiate(hazards[2], spawnPositionPickup, spawnRotation);
-
+		if (PlayerPrefs.GetInt ("Difficulty") == 3) {
+			Instantiate (hazards [2], spawnPositionPickup, spawnRotation);
+		} else if (PlayerPrefs.GetInt ("Difficulty") == 2){
+			yield return new WaitForSeconds (1.5f);
+			Instantiate (hazards [2], spawnPosition, spawnRotation);
+		}
 	}
 
 	void spawnWaveType3() {
