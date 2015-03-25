@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour {
 		Vector3 movement = new Vector3 (moveHorizontal, 0.0f , moveVertical);
 		rigidbody.AddForce (movement * movementSpeed );
 
-		if(Input.GetButtonDown("Jump") && !isAirborne){
+		if(Input.GetButton("Jump") && !isAirborne){
 			Jump ();
 		}
 
@@ -108,5 +108,12 @@ public class PlayerController : MonoBehaviour {
 		{  
 			child.gameObject.SetActiveRecursively(false);   
 		}   
+	}
+
+	void OnTriggerEnter(Collider other) {
+		gameController.addFuel();
+		Quaternion spawnRotation = Quaternion.identity;
+		Instantiate(explosion[1], other.transform.position, spawnRotation);
+		Destroy(other.transform.gameObject);
 	}
 }

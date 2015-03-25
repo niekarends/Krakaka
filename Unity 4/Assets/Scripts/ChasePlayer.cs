@@ -32,7 +32,7 @@ public class ChasePlayer : MonoBehaviour
                 rigidbody.AddForce(new Vector3(xForce * intensity, 0, 0));
 
                 //add the rotation in accordance to movement
-                rigidbody.rotation = Quaternion.Euler(rigidbody.rotation.x, rigidbody.velocity.x * rotation + 180, rigidbody.rotation.z);
+                //rigidbody.rotation = Quaternion.Euler(rigidbody.rotation.x, rigidbody.velocity.x * rotation + 180, rigidbody.rotation.z);
             }
         }
     }

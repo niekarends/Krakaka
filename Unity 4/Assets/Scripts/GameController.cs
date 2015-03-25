@@ -101,8 +101,8 @@ public class GameController : MonoBehaviour
         yield return new WaitForSeconds(startWait);
         while (true)
         {
-			spawnWaveType1(gameDifficulty);
-
+			StartCoroutine( spawnWaveType2());
+				
             yield return new WaitForSeconds(waveWait);
             if (isGameOver)
             {
@@ -125,6 +125,22 @@ public class GameController : MonoBehaviour
 			}
 		}
 	}
+
+	IEnumerator spawnWaveType2() {
+		int spawnlane = Random.Range (0, spawnXValues.Length);
+		Vector3 spawnPosition = new Vector3(spawnXValues[spawnlane], spawnValues.y, spawnValues.z);
+		Vector3 spawnPositionPickup = new Vector3(spawnXValues[spawnlane], 3.8f, spawnValues.z);	
+		Quaternion spawnRotation = Quaternion.identity;
+		//Instantiate(hazards[3], spawnPosition, spawnRotation);
+		yield return new WaitForSeconds (2);
+		Instantiate(hazards[0], spawnPosition, spawnRotation);
+		yield return new WaitForSeconds (1.75f);
+		Instantiate(hazards[1], spawnPosition, spawnRotation);
+
+		Instantiate(hazards[2], spawnPositionPickup, spawnRotation);
+
+	}
+
 
     public void gameOver()
     {
