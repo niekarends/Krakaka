@@ -85,16 +85,6 @@ public class PlayerController : MonoBehaviour {
                 Destroy(hit.transform.gameObject);
             }
 		}
-		//Checking for collision with pickups
-
-//		RaycastHit hit2;
-//		if (Physics.SphereCast (transform.position, 4.0f, transform.forward*10, out hit2)) {
-//			if(hit2.transform.tag == "Pickup") {
-//
-//			}
-//		}
-
-
 	}
 
 	void Jump() {
@@ -111,9 +101,11 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider other) {
-		gameController.addFuel();
-		Quaternion spawnRotation = Quaternion.identity;
-		Instantiate(explosion[1], other.transform.position, spawnRotation);
-		Destroy(other.transform.gameObject);
+		if (other.tag == "Pickup") {
+			gameController.addFuel ();
+			Quaternion spawnRotation = Quaternion.identity;
+			Instantiate (explosion [1], other.transform.position, spawnRotation);
+			Destroy (other.transform.gameObject);
+		}
 	}
 }
