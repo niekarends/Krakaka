@@ -3,5 +3,12 @@
     "info": {
         "title": "Test",
         "description": "asd"
+    },
+    "paths": {
+        "/jurisdictions": {
+            "get": {
+                "summary": "jurisdiction"
+            }
+        }
     }
 }
