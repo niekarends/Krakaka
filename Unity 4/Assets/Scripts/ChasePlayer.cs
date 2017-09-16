@@ -29,7 +29,7 @@ public class ChasePlayer : MonoBehaviour
             {
                 //Make the object move into direction of target
                 float xForce = target.transform.position.x - transform.position.x;
-                rigidbody.AddForce(new Vector3(xForce * intensity, 0, 0));
+				GetComponent<Rigidbody> ().AddForce (new Vector3 (xForce * intensity, 0, 0));
 
                 //add the rotation in accordance to movement
                 //rigidbody.rotation = Quaternion.Euler(rigidbody.rotation.x, rigidbody.velocity.x * rotation + 180, rigidbody.rotation.z);

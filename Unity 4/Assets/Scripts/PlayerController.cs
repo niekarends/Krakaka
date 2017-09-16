@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour {
 	public float maxRotation, maxTilt;
 	public GameObject[] explosion;
 	private GameController gameController;
+	private Rigidbody rbody = new Rigidbody();
 
 
 	void Start() {
@@ -22,6 +23,7 @@ public class PlayerController : MonoBehaviour {
 		} else {
 			Debug.Log ("Cant find gamecontroller");
 		}
+		rbody = GetComponent<Rigidbody> ();
 	}
 
 	void FixedUpdate() {
@@ -29,21 +31,20 @@ public class PlayerController : MonoBehaviour {
 		float moveVertical = Input.GetAxis ("Vertical");
 	
 		Vector3 movement = new Vector3 (moveHorizontal, 0.0f , moveVertical);
-		rigidbody.AddForce (movement * movementSpeed );
+		rbody.AddForce (movement * movementSpeed );
 
 		if(Input.GetButton("Jump") && !isAirborne){
 			Jump ();
 		}
-
 		//Keep the player object within the boundaries of the playfield
-		rigidbody.position = new Vector3
+		rbody.position = new Vector3
 			(
-				Mathf.Clamp(rigidbody.position.x, boundary.xMin, boundary.xMax),
-				rigidbody.position.y,
-				Mathf.Clamp(rigidbody.position.z, boundary.zMin, boundary.zMax)
+				Mathf.Clamp(rbody.position.x, boundary.xMin, boundary.xMax),
+				rbody.position.y,
+				Mathf.Clamp(rbody.position.z, boundary.zMin, boundary.zMax)
 				);
 
-		rigidbody.rotation = Quaternion.Euler (0, Mathf.Clamp(rigidbody.velocity.x * rotation, -maxRotation, maxRotation) , Mathf.Clamp(rigidbody.velocity.x * -tilt, -maxTilt, maxTilt));
+		rbody.rotation = Quaternion.Euler (0, Mathf.Clamp(rbody.velocity.x * rotation, -maxRotation, maxRotation) , Mathf.Clamp(rbody.velocity.x * -tilt, -maxTilt, maxTilt));
 
         if (gameController.getFuel() <= 1)
         {
@@ -88,7 +89,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void Jump() {
-		rigidbody.AddForce ( Vector3.up * jumpHeight );
+		rbody.AddForce ( Vector3.up * jumpHeight );
 		isAirborne = true;
 	}
 
